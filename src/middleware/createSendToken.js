@@ -2,6 +2,7 @@ const signToken = require("../utils/signToken");
 
 const createSendToken = (user, statusCode, res) => {
   const token = signToken(user._id);
+  console.log();
 
   const cookieOptions = {
     expires: new Date(

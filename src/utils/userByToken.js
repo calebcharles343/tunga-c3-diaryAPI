@@ -1,20 +1,9 @@
 const { promisify } = require("util");
-const catchAsync = require("../utils/catchAsync");
+const handleResponse = require("../middleware/handleResponse");
+const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
-const User = require("../models/User");
-const handleResponse = require("./handleResponse");
-
-const protect = catchAsync(async (req, res, next) => {
-  // 1) Getting token and checking if it exists
-  let token;
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
-    token = req.headers.authorization.split(" ")[1];
-  }
-
+const userByToken = async (token) => {
   if (!token) {
     return handleResponse(res, 401, "Invalid Token");
   }
@@ -33,10 +22,7 @@ const protect = catchAsync(async (req, res, next) => {
     return handleResponse(res, 401, "User no longer exists");
   }
 
-  // Granting access to the protected route
-  req.user = currentUser;
+  return currentUser;
+};
 
-  next();
-});
-
-module.exports = protect;
+module.exports = userByToken;
