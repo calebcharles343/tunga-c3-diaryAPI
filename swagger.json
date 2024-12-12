@@ -62,7 +62,7 @@
         }
       }
     },
-    "/dairy/create/{userId}": {
+    "/dairy/create": {
       "post": {
         "tags": ["Dairy"],
         "description": "Create a diary entry.",
@@ -70,17 +70,9 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "userID is needed to create diary entry."
-          },
-
-          {
             "name": "body",
             "in": "body",
-            "description": "Dairy entry credentials including title and content.",
+            "description": "Diary entry credentials including title and content.",
             "required": true,
             "schema": {
               "type": "object",
@@ -92,11 +84,9 @@
           }
         ],
         "responses": {
-          "200": { "description": "successfully." },
-          "400": {
-            "description": "fail"
-          },
-          "404": { "description": "Login Required." },
+          "201": { "description": "Entry created successfully." },
+          "400": { "description": "Invalid input." },
+          "404": { "description": "Login required." },
           "500": { "description": "Internal server error." }
         }
       }
@@ -104,81 +94,56 @@
     "/dairy/entry/{entryId}": {
       "get": {
         "tags": ["Dairy"],
-        "description": "Retrieve a dairy entry.",
+        "description": "Retrieve a diary entry.",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "entryID",
+            "name": "entryId",
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "entryID and userID are needed to Retrieve a dairy entry."
-          },
-          {
-            "name": "userId",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": "entryID and userID are needed to Retrieve a dairy entry."
+            "description": "Entry ID is needed to retrieve a diary entry."
           }
         ],
         "responses": {
-          "200": { "description": "Items retrieved successfully." },
+          "200": { "description": "Entry retrieved successfully." },
           "401": { "description": "Unauthorized access." },
           "500": { "description": "Internal server error." }
         }
       }
     },
-    "/dairy/entries/{userId}": {
+    "/dairy/entries": {
       "get": {
         "tags": ["Dairy"],
-        "description": "Retrieve all user dairy entries.",
+        "description": "Retrieve all user diary entries.",
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "userID is needed Retrieve all user dairy entries."
-          }
-        ],
         "responses": {
-          "200": { "description": "successfully." },
+          "200": { "description": "Entries retrieved successfully." },
           "401": { "description": "Unauthorized access." },
           "500": { "description": "Internal server error." }
         }
       }
     },
-
     "/dairy/update/{entryId}": {
       "put": {
         "tags": ["Dairy"],
-        "description": "Update a dairy entry",
+        "description": "Update a diary entry.",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "entryID",
+            "name": "entryId",
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "entryID and userID are needed to update a dairy entry."
+            "description": "Entry ID is needed to update a diary entry."
           },
-          {
-            "name": "userId",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": "entryID and userID are needed to update a dairy entry."
-          },
-
           {
             "name": "body",
             "in": "body",
-            "description": "Dairy entry credentials including title and content.",
+            "description": "Diary entry credentials including title and content.",
             "required": true,
             "schema": {
               "type": "object",
@@ -190,10 +155,8 @@
           }
         ],
         "responses": {
-          "200": { "description": "successfully." },
-          "404": {
-            "description": "fail."
-          },
+          "200": { "description": "Entry updated successfully." },
+          "404": { "description": "Entry not found." },
           "500": { "description": "Internal server error." }
         }
       }
@@ -201,26 +164,19 @@
     "/dairy/delete/{entryId}": {
       "delete": {
         "tags": ["Dairy"],
-        "description": "Delete an entry.",
+        "description": "Delete a diary entry.",
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "entryID",
+            "name": "entryId",
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "entryID and userID are needed to delete a dairy entry."
-          },
-          {
-            "name": "userId",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": "entryID and userID are needed to delete a dairy entry."
+            "description": "Entry ID is needed to delete a diary entry."
           }
         ],
         "responses": {
-          "200": { "description": "successfully." },
+          "200": { "description": "Entry deleted successfully." },
           "400": { "description": "Invalid entry ID." },
           "404": { "description": "Entry not found." },
           "500": { "description": "Internal server error." }

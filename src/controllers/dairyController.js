@@ -18,6 +18,8 @@ const getAllEntries = catchAsync(async (req, res, next) => {
 const getEntry = catchAsync(async (req, res, next) => {
   const currentUser = await userByToken(req, res);
 
+  console.log(currentUser, req.params.entryId);
+
   if (!currentUser) {
     return handleResponse(res, 401, "user not found");
   }
