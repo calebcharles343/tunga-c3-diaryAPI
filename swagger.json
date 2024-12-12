@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Cohort-3 Fullstack Dairy API",
-    "description": "Comprehensive API documentation for Fullstack Dairy API",
+    "title": "Cohort-3 Fullstack Diary API",
+    "description": "Comprehensive API documentation for Fullstack Diary API",
     "version": "1.0.0"
   },
   "host": "127.0.0.1:4001",
@@ -62,9 +62,9 @@
         }
       }
     },
-    "/dairy/create": {
+    "/diary/create": {
       "post": {
-        "tags": ["Dairy"],
+        "tags": ["Diary"],
         "description": "Create a diary entry.",
         "consumes": ["application/json"],
         "produces": ["application/json"],
@@ -91,9 +91,9 @@
         }
       }
     },
-    "/dairy/entry/{entryId}": {
+    "/diary/entry/{entryId}": {
       "get": {
-        "tags": ["Dairy"],
+        "tags": ["Diary"],
         "description": "Retrieve a diary entry.",
         "consumes": ["application/json"],
         "produces": ["application/json"],
@@ -113,9 +113,9 @@
         }
       }
     },
-    "/dairy/entries": {
+    "/diary/entries": {
       "get": {
-        "tags": ["Dairy"],
+        "tags": ["Diary"],
         "description": "Retrieve all user diary entries.",
         "consumes": ["application/json"],
         "produces": ["application/json"],
@@ -126,9 +126,9 @@
         }
       }
     },
-    "/dairy/update/{entryId}": {
+    "/diary/update/{entryId}": {
       "put": {
-        "tags": ["Dairy"],
+        "tags": ["Diary"],
         "description": "Update a diary entry.",
         "consumes": ["application/json"],
         "produces": ["application/json"],
@@ -161,9 +161,9 @@
         }
       }
     },
-    "/dairy/delete/{entryId}": {
+    "/diary/delete/{entryId}": {
       "delete": {
-        "tags": ["Dairy"],
+        "tags": ["Diary"],
         "description": "Delete a diary entry.",
         "produces": ["application/json"],
         "parameters": [

@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db.js");
 const authRoutes = require("./routes/auth.js");
-const diaryRoutes = require("./routes/dairy.js");
+const diaryRoutes = require("./routes/diary.js");
 const swaggerDocument = require("../swagger.json");
 const swaggerUi = require("swagger-ui-express");
 
@@ -17,14 +17,14 @@ app.use(express.json());
 
 // Swagger Documentation
 app.use(
-  "/cohort3-fullstack-dairy/api-docs",
+  "/cohort3-fullstack-diary/api-docs",
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument)
 );
 
 // Routes
 app.use("/api/cohort3-fullstack/auth", authRoutes);
-app.use("/api/cohort3-fullstack/dairy", diaryRoutes);
+app.use("/api/cohort3-fullstack/diary", diaryRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
