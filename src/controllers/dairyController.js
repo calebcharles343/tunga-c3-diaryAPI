@@ -1,7 +1,7 @@
 const DiaryEntry = require("../models/DairyEntry.js");
 const catchAsync = require("../utils/catchAsync.js");
 const filterObj = require("../utils/filterObj.js");
-const handleResponse = require("../utils/handleResponse.js");
+const handleResponse = require("../middleware/handleResponse.js");
 
 const getAllEntries = catchAsync(async (req, res, next) => {
   const userid = req.params.id;

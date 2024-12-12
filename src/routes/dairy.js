@@ -7,7 +7,7 @@ const {
   updateEntry,
   deleteEntry,
 } = require("../controllers/dairyController.js");
-const protect = require("../utils/protect.js");
+const protect = require("../middleware/protect.js");
 
 const router = express.Router();
 

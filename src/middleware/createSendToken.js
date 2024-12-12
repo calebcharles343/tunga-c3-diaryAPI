@@ -1,4 +1,4 @@
-const signToken = require("./signToken");
+const signToken = require("../utils/signToken");
 
 const createSendToken = (user, statusCode, res) => {
   const token = signToken(user._id);

@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const swaggerUi = require("swagger-ui-express");
 const connectDB = require("./config/db.js");
-const swaggerDocument = require("./config/swagger");
 const authRoutes = require("./routes/auth.js");
 const diaryRoutes = require("./routes/dairy.js");
 
@@ -16,7 +15,6 @@ app.use(cors());
 app.use(express.json());
 
 // Swagger Documentation
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Routes
 app.use("/api/cohort3-fullstack/auth", authRoutes);

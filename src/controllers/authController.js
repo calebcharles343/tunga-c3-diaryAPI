@@ -1,8 +1,8 @@
 const User = require("../models/User.js");
-const { hashPassword, verifyPassword } = require("../utils/auth.js");
+const { hashPassword } = require("../utils/auth.js");
 const catchAsync = require("../utils/catchAsync.js");
-const createSendToken = require("../utils/createSendToken.js");
-const handleResponse = require("../utils/handleResponse.js");
+const createSendToken = require("../middleware/createSendToken.js");
+const handleResponse = require("../middleware/handleResponse.js");
 
 const seedUsers = async (req, res) => {
   try {
