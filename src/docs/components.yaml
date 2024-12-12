@@ -1,0 +1,51 @@
+components:
+  schemas:
+    DiaryEntry:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "507f1f77bcf86cd799439011"
+        title:
+          type: string
+          example: "My First Entry"
+        content:
+          type: string
+          example: "This is the content of my diary entry."
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - title
+        - content
+
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Error message"
+
+  securitySchemes:
+    BasicAuth:
+      type: apiKey
+      in: header
+      name: email
+      description: User's email address
+    PasswordAuth:
+      type: apiKey
+      in: header
+      name: password
+      description: User's password
+
+  parameters:
+    idParam:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The diary entry ID

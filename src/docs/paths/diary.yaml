@@ -1,0 +1,112 @@
+/diary:
+  get:
+    tags:
+      - Diary
+    summary: Get all diary entries
+    security:
+      - BasicAuth: []
+      - PasswordAuth: []
+    responses:
+      200:
+        description: List of diary entries
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/DiaryEntry"
+      401:
+        $ref: "#/components/responses/UnauthorizedError"
+
+  post:
+    tags:
+      - Diary
+    summary: Create new diary entry
+    security:
+      - BasicAuth: []
+      - PasswordAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/DiaryEntryRequest"
+    responses:
+      201:
+        description: Entry created
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DiaryEntry"
+      401:
+        $ref: "#/components/responses/UnauthorizedError"
+      422:
+        $ref: "#/components/responses/ValidationError"
+
+/diary/{id}:
+  parameters:
+    - $ref: "#/components/parameters/idParam"
+  get:
+    tags:
+      - Diary
+    summary: Get diary entry by ID
+    security:
+      - BasicAuth: []
+      - PasswordAuth: []
+    responses:
+      200:
+        description: Diary entry details
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DiaryEntry"
+      401:
+        $ref: "#/components/responses/UnauthorizedError"
+      404:
+        $ref: "#/components/responses/NotFoundError"
+
+  put:
+    tags:
+      - Diary
+    summary: Update diary entry
+    security:
+      - BasicAuth: []
+      - PasswordAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/DiaryEntryRequest"
+    responses:
+      200:
+        description: Entry updated
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DiaryEntry"
+      401:
+        $ref: "#/components/responses/UnauthorizedError"
+      404:
+        $ref: "#/components/responses/NotFoundError"
+      422:
+        $ref: "#/components/responses/ValidationError"
+
+  delete:
+    tags:
+      - Diary
+    summary: Delete diary entry
+    security:
+      - BasicAuth: []
+      - PasswordAuth: []
+    responses:
+      200:
+        description: Entry deleted
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SuccessResponse"
+      401:
+        $ref: "#/components/responses/UnauthorizedError"
+      404:
+        $ref: "#/components/responses/NotFoundError"
