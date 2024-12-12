@@ -5,9 +5,9 @@
     "description": "Comprehensive API documentation for Fullstack Dairy API",
     "version": "1.0.0"
   },
-  "host": "http://127.0.0.1:4001",
+  "host": "127.0.0.1:4001",
   "basePath": "/api/cohort3-fullstack/",
-  "schemes": ["https"],
+  "schemes": ["http"],
   "consumes": ["application/json", "multipart/form-data"],
   "produces": ["application/json"],
   "securityDefinitions": {
@@ -62,7 +62,7 @@
         }
       }
     },
-    "/dairy/{userID}": {
+    "/dairy/entries/{userID}": {
       "post": {
         "tags": ["Dairy"],
         "description": "Create a diary entry.",
@@ -101,7 +101,7 @@
         }
       }
     },
-    "/dairy/{entryID}": {
+    "/dairy/entry/{entryID}": {
       "get": {
         "tags": ["Dairy"],
         "description": "Retrieve a dairy entry.",
@@ -130,7 +130,7 @@
         }
       }
     },
-    "/dairy/{{userID}}": {
+    "/dairy/create/{userID}": {
       "get": {
         "tags": ["Dairy"],
         "description": "Retrieve all user dairy entries.",
@@ -153,7 +153,7 @@
       }
     },
 
-    "/dairy/{{entryID}}": {
+    "/dairy/update/{{entryID}}": {
       "patch": {
         "tags": ["Dairy"],
         "description": "Update a shop item by ID. Login is required and Restricted to admin user",
@@ -198,7 +198,7 @@
         }
       }
     },
-    "/dairy/{{{entryID}}}": {
+    "/dairy/delete/{entryID}": {
       "delete": {
         "tags": ["Dairy"],
         "description": "Delete an entry.",
