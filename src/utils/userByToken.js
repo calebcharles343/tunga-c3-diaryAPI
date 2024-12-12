@@ -3,7 +3,15 @@ const handleResponse = require("../middleware/handleResponse");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
-const userByToken = async (token) => {
+const userByToken = async (req, res) => {
+  let token;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    token = req.headers.authorization.split(" ")[1];
+  }
+
   if (!token) {
     return handleResponse(res, 401, "Invalid Token");
   }

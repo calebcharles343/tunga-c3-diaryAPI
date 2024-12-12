@@ -5,49 +5,25 @@ const handleResponse = require("../middleware/handleResponse.js");
 const userByToken = require("../utils/userByToken.js");
 
 const getAllEntries = catchAsync(async (req, res, next) => {
-  let token;
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
-    token = req.headers.authorization.split(" ")[1];
-  }
+  const currentUser = await userByToken(req, res);
 
-  if (!token) {
-    return handleResponse(res, 401, "Invalid Token");
-  }
-  const cunrrentUser = await userByToken(token);
-
-  if (!cunrrentUser) {
+  if (!currentUser) {
     return handleResponse(res, 401, "user not found");
   }
 
-  // const userId = cunrrentUser.id;
-
-  const entries = await DiaryEntry.find({ user: cunrrentUser.id });
+  const entries = await DiaryEntry.find({ user: currentUser.id });
   return handleResponse(res, 200, "Successful", entries);
 });
 
 const getEntry = catchAsync(async (req, res, next) => {
-  let token;
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
-    token = req.headers.authorization.split(" ")[1];
-  }
+  const currentUser = await userByToken(req, res);
 
-  if (!token) {
-    return handleResponse(res, 401, "Invalid Token");
-  }
-  const cunrrentUser = await userByToken(token);
-
-  if (!cunrrentUser) {
+  if (!currentUser) {
     return handleResponse(res, 401, "user not found");
   }
 
   const entryId = req.params.entryId;
-  const userId = cunrrentUser.id;
+  const userId = currentUser.id;
   console.log(entryId, userId);
 
   if (!entryId) {
@@ -89,29 +65,18 @@ const createEntry = catchAsync(async (req, res, next) => {
 const updateEntry = catchAsync(async (req, res, next) => {
   const { title, content } = req.body;
 
-  let token;
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
-    token = req.headers.authorization.split(" ")[1];
-  }
+  const currentUser = await userByToken(req, res);
 
-  if (!token) {
-    return handleResponse(res, 401, "Invalid Token");
-  }
-  const cunrrentUser = await userByToken(token);
-
-  if (!cunrrentUser) {
+  if (!currentUser) {
     return handleResponse(res, 401, "user not found");
   }
+
+  const entryId = req.params.entryId;
+  const userId = currentUser.id;
 
   if (!entryId) {
     return handleResponse(res, 400, "Please provide an entry ID");
   }
-
-  const entryId = req.params.entryId;
-  const userId = cunrrentUser.id;
 
   if (!title || !content) {
     return handleResponse(res, 400, "Please provide both title and content");
@@ -133,32 +98,17 @@ const updateEntry = catchAsync(async (req, res, next) => {
 });
 
 const deleteEntry = catchAsync(async (req, res, next) => {
-  let token;
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
-    token = req.headers.authorization.split(" ")[1];
-  }
+  const currentUser = await userByToken(req, res);
 
-  if (!token) {
-    return handleResponse(res, 401, "Invalid Token");
-  }
-  const cunrrentUser = await userByToken(token);
-
-  if (!cunrrentUser) {
+  if (!currentUser) {
     return handleResponse(res, 401, "user not found");
   }
 
+  const entryId = req.params.entryId;
+  const userId = currentUser.id;
+
   if (!entryId) {
     return handleResponse(res, 400, "Please provide an entry ID");
-  }
-
-  const entryId = req.params.entryId;
-  const userId = cunrrentUser.id;
-
-  if (!title || !content) {
-    return handleResponse(res, 400, "Please provide both title and content");
   }
 
   const entry = await DiaryEntry.findOneAndDelete({
