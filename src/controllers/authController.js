@@ -1,5 +1,5 @@
 const User = require("../models/User.js");
-const { hashPassword } = require("../utils/auth.js");
+const { hashPassword, verifyPassword } = require("../utils/auth.js");
 const catchAsync = require("../utils/catchAsync.js");
 const createSendToken = require("../middleware/createSendToken.js");
 const handleResponse = require("../middleware/handleResponse.js");
@@ -40,23 +40,24 @@ const seedUsers = async (req, res) => {
 const login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
 
-  // 1) Check if email and password exist
   if (!email || !password) {
-    handleResponse(res, 401, "Invalid credentials");
+    return handleResponse(res, 400, "Please provide both email and password");
   }
-  // 2) Check if user exists && password is correct
 
-  const user = await User.findOne({ email: email }).select("+password");
-
-  // console.log(user);
+  const user = await User.findOne({ email }).select("+password");
   if (!user) {
-    handleResponse(res, 401, "Invalid credentials");
+    return handleResponse(res, 401, "Invalid credentials");
   }
 
-  // // 3) If everything ok, send token to client
+  const isPasswordCorrect = await verifyPassword(password, user.password); // Compare plain text with stored hash
+  if (!isPasswordCorrect) {
+    return handleResponse(res, 401, "Invalid credentials");
+  }
+
+  4;
   createSendToken(user, 200, res);
 });
-//logout will mostly implemented on the client side with local storage
+
 const logout = (req, res) => {
   res.cookie("jwt", "", {
     httpOnly: true,
