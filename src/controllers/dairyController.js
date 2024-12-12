@@ -4,23 +4,22 @@ const filterObj = require("../utils/filterObj.js");
 const handleResponse = require("../middleware/handleResponse.js");
 
 const getAllEntries = catchAsync(async (req, res, next) => {
-  const userid = req.params.id;
+  const userId = req.params.userId;
 
-  const entries = await DiaryEntry.find({ user: userid });
+  const entries = await DiaryEntry.find({ user: userId });
   return handleResponse(res, 200, "Successful", entries);
 });
 
 const getEntry = catchAsync(async (req, res, next) => {
-  const userid = req.headers["userId"] || req.user._id;
-  const entryId = req.params.id;
+  const entryId = req.params.entryId;
 
-  if (!userid || !entryId) {
-    return handleResponse(res, 404, "Please Provide both user and entry IDs");
+  if (!entryId) {
+    return handleResponse(res, 400, "Please provide an entry ID");
   }
 
   const entry = await DiaryEntry.findOne({
     _id: entryId,
-    user: userid,
+    user: req.user._id,
   });
 
   if (!entry) {
@@ -33,17 +32,16 @@ const getEntry = catchAsync(async (req, res, next) => {
 const createEntry = catchAsync(async (req, res, next) => {
   const { title, content } = req.body;
 
-  const userId = req.params.id;
-
   if (!title || !content) {
-    return handleResponse(res, 404, "please provide both title and content");
+    return handleResponse(res, 400, "Please provide both title and content");
   }
+
   const filteredBody = filterObj(req.body, "title", "content");
 
   const entry = new DiaryEntry({
     title: filteredBody.title,
     content: filteredBody.content,
-    user: userId,
+    user: req.params.userId,
   });
 
   await entry.save();
@@ -51,17 +49,17 @@ const createEntry = catchAsync(async (req, res, next) => {
 });
 
 const updateEntry = catchAsync(async (req, res, next) => {
-  const id = req.headers["userId"] || req.user._id;
   const { title, content } = req.body;
+  const entryId = req.params.entryId;
 
   if (!title || !content) {
-    return handleResponse(res, 404, "please provide both title and content");
+    return handleResponse(res, 400, "Please provide both title and content");
   }
 
   const filteredBody = filterObj(req.body, "title", "content");
 
   const entry = await DiaryEntry.findOneAndUpdate(
-    { _id: req.params.id, user: id },
+    { _id: entryId, user: req.user._id },
     { title: filteredBody.title, content: filteredBody.content },
     { new: true }
   );
@@ -74,12 +72,11 @@ const updateEntry = catchAsync(async (req, res, next) => {
 });
 
 const deleteEntry = catchAsync(async (req, res, next) => {
-  const userid = req.headers["userId"] || req.user._id;
-  const entryId = req.params.id;
+  const entryId = req.params.entryId;
 
   const entry = await DiaryEntry.findOneAndDelete({
     _id: entryId,
-    user: userid,
+    user: req.user._id,
   });
 
   if (!entry) {

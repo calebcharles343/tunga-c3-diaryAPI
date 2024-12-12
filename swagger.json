@@ -62,7 +62,7 @@
         }
       }
     },
-    "/dairy/entries/{userID}": {
+    "/dairy/create/{userId}": {
       "post": {
         "tags": ["Dairy"],
         "description": "Create a diary entry.",
@@ -101,7 +101,7 @@
         }
       }
     },
-    "/dairy/entry/{entryID}": {
+    "/dairy/entry/{entryId}": {
       "get": {
         "tags": ["Dairy"],
         "description": "Retrieve a dairy entry.",
@@ -130,7 +130,7 @@
         }
       }
     },
-    "/dairy/create/{userID}": {
+    "/dairy/entries/{userId}": {
       "get": {
         "tags": ["Dairy"],
         "description": "Retrieve all user dairy entries.",
@@ -153,10 +153,10 @@
       }
     },
 
-    "/dairy/update/{{entryID}}": {
-      "patch": {
+    "/dairy/update/{entryId}": {
+      "put": {
         "tags": ["Dairy"],
-        "description": "Update a shop item by ID. Login is required and Restricted to admin user",
+        "description": "Update a dairy entry",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -198,7 +198,7 @@
         }
       }
     },
-    "/dairy/delete/{entryID}": {
+    "/dairy/delete/{entryId}": {
       "delete": {
         "tags": ["Dairy"],
         "description": "Delete an entry.",
