@@ -2,7 +2,7 @@ const DiaryEntry = require("../models/DairyEntry.js");
 const catchAsync = require("../utils/catchAsync.js");
 const filterObj = require("../utils/filterObj.js");
 const handleResponse = require("../middleware/handleResponse.js");
-const userByToken = require("../utils/userByToken.js");
+const userByToken = require("../middleware/userByToken.js");
 
 const getAllEntries = catchAsync(async (req, res, next) => {
   const currentUser = await userByToken(req, res);
@@ -24,7 +24,6 @@ const getEntry = catchAsync(async (req, res, next) => {
 
   const entryId = req.params.entryId;
   const userId = currentUser.id;
-  console.log(entryId, userId);
 
   if (!entryId) {
     return handleResponse(res, 400, "Please provide an entry ID");
@@ -43,6 +42,11 @@ const getEntry = catchAsync(async (req, res, next) => {
 });
 
 const createEntry = catchAsync(async (req, res, next) => {
+  const currentUser = await userByToken(req, res);
+  if (!currentUser) {
+    return handleResponse(res, 401, "user not found");
+  }
+
   const { title, content } = req.body;
 
   if (!title || !content) {
@@ -50,7 +54,7 @@ const createEntry = catchAsync(async (req, res, next) => {
   }
 
   const filteredBody = filterObj(req.body, "title", "content");
-  const userId = req.params.userId;
+  const userId = currentUser.id;
 
   const entry = new DiaryEntry({
     title: filteredBody.title,
@@ -63,13 +67,13 @@ const createEntry = catchAsync(async (req, res, next) => {
 });
 
 const updateEntry = catchAsync(async (req, res, next) => {
-  const { title, content } = req.body;
-
   const currentUser = await userByToken(req, res);
 
   if (!currentUser) {
     return handleResponse(res, 401, "user not found");
   }
+
+  const { title, content } = req.body;
 
   const entryId = req.params.entryId;
   const userId = currentUser.id;

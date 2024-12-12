@@ -1,5 +1,5 @@
 const { promisify } = require("util");
-const handleResponse = require("../middleware/handleResponse");
+const handleResponse = require("./handleResponse");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
