@@ -1,4 +1,4 @@
-const DiaryEntry = require("../models/DairyEntry.js");
+const DiaryEntry = require("../models/DiaryEntry.js");
 const catchAsync = require("../utils/catchAsync.js");
 const filterObj = require("../utils/filterObj.js");
 const handleResponse = require("../middleware/handleResponse.js");
@@ -17,8 +17,6 @@ const getAllEntries = catchAsync(async (req, res, next) => {
 
 const getEntry = catchAsync(async (req, res, next) => {
   const currentUser = await userByToken(req, res);
-
-  console.log(currentUser, req.params.entryId);
 
   if (!currentUser) {
     return handleResponse(res, 401, "user not found");
