@@ -3,14 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node src/server.js",
-    "start:prod": "export NODE_ENV=production && node src/server.js",
-    "start:prod2": "SET NODE_ENV=production & node src/server.js",
-    "debug": "ndb server.js"
+    "start:prod": "cross-env NODE_ENV=production node src/server.js",
+    "start:prod2": "cross-env NODE_ENV=production node src/server.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
@@ -19,9 +18,9 @@
     "yamljs": "^0.3.0"
   },
   "engines": {
-    "node": ">=10.0.0"
+    "node": "20.14.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.2"
+    "nodemon": "^3.1.9"
   }
 }
