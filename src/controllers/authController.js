@@ -19,6 +19,7 @@ const seedUsers = async (req, res) => {
       "tracy.akapo@gmail.com",
       "ucheokeke61@gmail.com",
       "weliledlamini575@gmail.com",
+      "mwebazenicholas6@gmail.com",
     ];
 
     const password = await hashPassword("tunga123");
