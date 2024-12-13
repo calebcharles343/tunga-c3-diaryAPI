@@ -5,7 +5,7 @@
     "description": "Comprehensive API documentation for Fullstack Diary API",
     "version": "1.0.0"
   },
-  "host": "127.0.0.1:4001",
+  "host": "tunga-c3-diaryapi.onrender.com",
   "basePath": "/api/cohort3-fullstack/",
   "schemes": ["http"],
   "consumes": ["application/json", "multipart/form-data"],
