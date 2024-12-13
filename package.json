@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon server.js",
-    "start:prod": "export NODE_ENV=production && nodemon src/server.js",
-    "start:prod2": "SET NODE_ENV=production & nodemon src/server.js",
+    "start": "node src/server.js",
+    "start:prod": "export NODE_ENV=production && node src/server.js",
+    "start:prod2": "SET NODE_ENV=production & node src/server.js",
     "debug": "ndb server.js"
   },
   "dependencies": {
@@ -17,6 +17,9 @@
     "mongoose": "^8.0.3",
     "swagger-ui-express": "^5.0.0",
     "yamljs": "^0.3.0"
+  },
+  "engines": {
+    "node": ">=10.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.2"
