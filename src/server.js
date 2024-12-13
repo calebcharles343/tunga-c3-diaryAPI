@@ -3,6 +3,9 @@ const cors = require("cors");
 const connectDB = require("./config/db.js");
 const authRoutes = require("./routes/auth.js");
 const diaryRoutes = require("./routes/diary.js");
+const rateLimit = require("express-rate-limit");
+const helmet = require("helmet");
+
 const swaggerDocument = require("../swagger.json");
 const swaggerUi = require("swagger-ui-express");
 
@@ -12,8 +15,17 @@ const app = express();
 connectDB();
 
 // Middleware
-app.use(express.json());
+app.use(helmet());
+app.use(express.json({ limit: "10kb" }));
 app.use(cors());
+
+// Limit requests from same API (bruteforce and denial of service attacks protection)
+const limiter = rateLimit({
+  max: 100,
+  windowMs: 60 * 60 * 1000,
+  message: "Too many requests from this IP, please try again in an hour!",
+});
+app.use("/api", limiter);
 
 // Swagger Documentation
 app.use(
