@@ -17,7 +17,7 @@ app.use(express.json());
 
 // Swagger Documentation
 app.use(
-  "/cohort3-fullstack-diary/api-docs",
+  "/cohort3-fullstack/api-docs",
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument)
 );
