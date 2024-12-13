@@ -7,7 +7,7 @@
   },
   "host": "tunga-c3-diaryapi.onrender.com",
   "basePath": "/api/cohort3-fullstack/",
-  "schemes": ["http", "https"],
+  "schemes": ["https"],
   "consumes": ["application/json", "multipart/form-data"],
   "produces": ["application/json"],
   "securityDefinitions": {
