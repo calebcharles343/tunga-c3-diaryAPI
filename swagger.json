@@ -30,7 +30,7 @@
           {
             "name": "body",
             "in": "body",
-            "description": "User login credentials including email and password.",
+            "description": "User login credentials including email and password (`jwt` token is saved in cookies when successfull).",
             "required": true,
             "schema": {
               "type": "object",
@@ -52,7 +52,7 @@
     "/auth/logout": {
       "post": {
         "tags": ["User Auth"],
-        "description": "Log out user. User has to be logged in to log out.",
+        "description": "Log out user. User has to be logged in to log out (`jwt` token is deleted from cookies when successfull).",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "responses": {

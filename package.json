@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start:prod": "cross-env NODE_ENV=production node src/server.js",
-    "start:prod2": "cross-env NODE_ENV=production node src/server.js"
+    "start:prod2": "cross-env NODE_ENV=production node src/server.js",
+    "start": "cross-env NODE_ENV=production node src/server.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
